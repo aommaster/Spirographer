@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Spirographer/static/css/main.2b7a1156.chunk.css",
+    "main.js": "/Spirographer/static/js/main.a7d966d3.chunk.js",
+    "main.js.map": "/Spirographer/static/js/main.a7d966d3.chunk.js.map",
+    "runtime-main.js": "/Spirographer/static/js/runtime-main.534565de.js",
+    "runtime-main.js.map": "/Spirographer/static/js/runtime-main.534565de.js.map",
+    "static/js/2.04062eb7.chunk.js": "/Spirographer/static/js/2.04062eb7.chunk.js",
+    "static/js/2.04062eb7.chunk.js.map": "/Spirographer/static/js/2.04062eb7.chunk.js.map",
+    "static/js/3.83b2139c.chunk.js": "/Spirographer/static/js/3.83b2139c.chunk.js",
+    "static/js/3.83b2139c.chunk.js.map": "/Spirographer/static/js/3.83b2139c.chunk.js.map",
+    "index.html": "/Spirographer/index.html",
+    "static/css/main.2b7a1156.chunk.css.map": "/Spirographer/static/css/main.2b7a1156.chunk.css.map",
+    "static/js/2.04062eb7.chunk.js.LICENSE.txt": "/Spirographer/static/js/2.04062eb7.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.534565de.js",
+    "static/js/2.04062eb7.chunk.js",
+    "static/css/main.2b7a1156.chunk.css",
+    "static/js/main.a7d966d3.chunk.js"
+  ]
+}
