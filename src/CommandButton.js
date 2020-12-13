@@ -1,18 +1,15 @@
 import React from 'react';
 
 const buttonTypes={
-  start:{
-    buttonText:"Click Me!"
+  random:{
+    buttonText:"Random Curve"
   }
 }
 
 function CommandButton(props) {
   const {buttonText} = buttonTypes[props.buttonType];
   return (
-    <div id="commandPanel">
-      <button onClick={props.callback}>{buttonText}</button>
-    </div>
-    
+    <button onClick={props.callback}>{buttonText}</button>
   );
 }
 

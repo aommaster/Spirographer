@@ -1,11 +1,3 @@
-export function randoSpiro(canvas) {
-  let R = Math.floor(Math.random() * Math.floor(300)) //Radius A 500
-  let r = Math.floor(Math.random() * Math.floor(300)) //Radius B 500
-  let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
-  let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
-  let p = Math.floor(Math.random() * Math.floor(10)) //Points per curve
-  drawSpiro(R, r, d, u, p, canvas);
-};
 export function drawSpiro(radius1, radius2, distance, rotation, pointsPerCurve, canvas) {
   let ctx = canvas.getContext("2d");
   let origin = {
@@ -15,6 +7,7 @@ export function drawSpiro(radius1, radius2, distance, rotation, pointsPerCurve, 
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   ctx.lineWidth= 1;
+  ctx.strokeStyle = "#000";
   let angleStep = 2 * Math.PI / pointsPerCurve;
   let numRevolutions = radius2/gcd(radius1,radius2);
   let numPoints = pointsPerCurve * numRevolutions
@@ -37,12 +30,11 @@ export function drawSpiro(radius1, radius2, distance, rotation, pointsPerCurve, 
     } 
     
     ctx.lineTo(newPoint.x, newPoint.y);
-    ctx.strokeStyle = "#000";
-    ctx.stroke();
     oldPoint = {
       x: newPoint.x,
       y: newPoint.y
     }
+    ctx.stroke();
   }
 }
 
