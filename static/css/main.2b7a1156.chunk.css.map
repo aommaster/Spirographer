@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,iBACE,SAAS,CACT,UACF,CACA,YACE,UAAU,CACV,WACF","file":"main.2b7a1156.chunk.css","sourcesContent":["#canvasContainer{\n  width:50%;\n  height:50%;\n}\n#mainCanvas{\n  width:100%;\n  height: 100%;\n}\n"]}
