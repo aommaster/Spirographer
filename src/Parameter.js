@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 
 const parameterData={
   'r1':{
@@ -24,10 +24,12 @@ const parameterData={
 }
 
 function Parameter(props) {
-  const [stateValue, setValue] = useState(()=>{
-    return props.value;
-  });
+  const [stateValue, setValue] = useState(props.value);
   const {text, desc} = parameterData[props.type];
+
+  useEffect(() => {
+    setValue(props.value)
+  }, [props.value])
 
   function updateParameter(e){
     setValue(e.target.value);

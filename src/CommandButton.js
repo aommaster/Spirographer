@@ -3,6 +3,9 @@ import React from 'react';
 const buttonTypes={
   random:{
     buttonText:"Random Curve"
+  },
+  draw:{
+    buttonText:"Draw Curve"
   }
 }
 

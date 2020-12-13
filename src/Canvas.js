@@ -1,6 +1,7 @@
 import React from 'react';
 import CommandButton from './CommandButton';
-import Parameter from './Parameter.js';
+import Parameter from './Parameter';
+import Spirograph from './Spirograph';
 import * as spiroFunctions from './spirofunctions';
 
 class Canvas extends React.Component {
@@ -8,17 +9,19 @@ class Canvas extends React.Component {
     super(props);
     this.updateParameters = this.updateParameters.bind(this);
     this.randomCurve = this.randomCurve.bind(this);
+    this.drawSpiro = this.drawSpiro.bind(this);
   }
   state = {
       r1: 100,
       r2: 100,
       distance: 50,
       rotation: 25,
-      ppc:10
+      ppc:10,
+      SVGList: [],
   }
   updateParameters(parameter, value){
     this.setState(()=>(
-      {parameter: value})
+      {[parameter]: value})
     )
   }
   randomCurve(){
@@ -38,11 +41,12 @@ class Canvas extends React.Component {
     )
   }
   drawSpiro(){
-    let canvas = document.getElementById("mainCanvas");
-    spiroFunctions.drawSpiro(this.state.r1, this.state.r2, this.state.distance, this.state.rotation, this.state.ppc, canvas);
+    let newSVG = spiroFunctions.drawSpiroSVG(this.state.r1, this.state.r2, this.state.distance, this.state.rotation, this.state.ppc);
+    this.setState((prevState) => ({
+      SVGList: [...prevState.SVGList, newSVG]
+    }))
   }
   componentWillMount() {
-    console.log("start");
     this.randomCurve();
   }
   componentDidMount(){
@@ -53,8 +57,8 @@ class Canvas extends React.Component {
       <div className="container">
         <div className="row">
           <div className="col-8">
-            <div id="canvasContainer">
-              <canvas className="border" id="mainCanvas" width={'800px'} height={'600px'}></canvas>
+            <div id="canvasContainer" className="border">
+                {this.state.SVGList.map((spiro, index) => <Spirograph key={index} path={spiro}/>)}
             </div>
           </div>
           <div className="col-4">
@@ -65,7 +69,10 @@ class Canvas extends React.Component {
               <Parameter type='rotation' callback={this.updateParameters} value={this.state.rotation}/>
               <Parameter type='ppc' callback={this.updateParameters} value={this.state.ppc}/>
             </div>
-            <CommandButton buttonType='random' callback={this.randomCurve}/>
+            <div className="buttonPanel">
+              <CommandButton buttonType='random' callback={this.randomCurve}/>
+              <CommandButton buttonType='draw' callback={this.drawSpiro}/>
+            </div>
           </div>
         </div>
         
