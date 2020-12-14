@@ -11,7 +11,6 @@ export function drawSpiroSVG(radius1, radius2, distance, rotation, pointsPerCurv
     y: 300
   }
 
-
   let SVGPath = [];
   let angleStep = 2 * Math.PI / pointsPerCurve;
   let numRevolutions = radius2/gcd(radius1,radius2);

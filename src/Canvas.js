@@ -12,17 +12,15 @@ class Canvas extends React.Component {
     this.drawSpiro = this.drawSpiro.bind(this);
   }
   state = {
-      r1: 100,
-      r2: 100,
-      distance: 50,
-      rotation: 25,
-      ppc:10,
-      SVGList: [],
+      curveList: [],
+      activeCurve: 0
   }
   updateParameters(parameter, value){
+    console.log({...this.state.curveList});
+    /*let updatedProperty = {...this.state.curveList[this.state.activeCurve].params[parameter]};
     this.setState(()=>(
-      {[parameter]: value})
-    )
+      {updatedPro: value})
+    )*/
   }
   randomCurve(){
     let R = Math.floor(Math.random() * Math.floor(300)) //Radius A 500
@@ -30,44 +28,55 @@ class Canvas extends React.Component {
     let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
     let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
     let p = Math.floor(Math.random() * Math.floor(10)) //Points per curve
-    this.setState(()=>(
+    let params = 
       {
         r1: R,
         r2: r,
         distance: d,
         rotation: u,
         ppc: p
-      })
-    )
+      }
+    return params;
   }
-  drawSpiro(){
-    let newSVG = spiroFunctions.drawSpiroSVG(this.state.r1, this.state.r2, this.state.distance, this.state.rotation, this.state.ppc);
+  drawSpiro(drawParams){
+    let newSVG = spiroFunctions.drawSpiroSVG(drawParams.r1, drawParams.r2, drawParams.distance, drawParams.rotation, drawParams.ppc);
     this.setState((prevState) => ({
-      SVGList: [...prevState.SVGList, newSVG]
+      curveList: [...prevState.curveList, {'params': drawParams, 'path':newSVG}]
     }))
   }
-  componentWillMount() {
-    this.randomCurve();
-  }
   componentDidMount(){
-    this.drawSpiro()
+    let randomParams = this.randomCurve();
+    this.drawSpiro(randomParams)
   }
-  render() { 
+  render() {
+    var params = {
+      r1: 0,
+      r2: 0,
+      distance: 0,
+      rotation: 0,
+      ppc: 0
+    };
+    var path = "";
+    
+    if(this.state.curveList[this.state.activeCurve]!== undefined){
+    ({params, path} = this.state.curveList[this.state.activeCurve]);
+    }
+    
     return (
       <div className="container">
         <div className="row">
           <div className="col-8">
             <div id="canvasContainer" className="border">
-                {this.state.SVGList.map((spiro, index) => <Spirograph key={index} path={spiro}/>)}
+                {this.state.curveList.map((spiro, index) => <Spirograph key={index} path={spiro.path}/>)}
             </div>
           </div>
           <div className="col-4">
             <div className="parameterPanel">
-              <Parameter type='r1' callback={this.updateParameters} value={this.state.r1}/>
-              <Parameter type='r2' callback={this.updateParameters} value={this.state.r2}/>
-              <Parameter type='distance' callback={this.updateParameters} value={this.state.distance}/>
-              <Parameter type='rotation' callback={this.updateParameters} value={this.state.rotation}/>
-              <Parameter type='ppc' callback={this.updateParameters} value={this.state.ppc}/>
+              <Parameter type='r1' callback={this.updateParameters} value={params.r1}/>
+              <Parameter type='r2' callback={this.updateParameters} value={params.r2}/>
+              <Parameter type='distance' callback={this.updateParameters} value={params.distance}/>
+              <Parameter type='rotation' callback={this.updateParameters} value={params.rotation}/>
+              <Parameter type='ppc' callback={this.updateParameters} value={params.ppc}/>
             </div>
             <div className="buttonPanel">
               <CommandButton buttonType='random' callback={this.randomCurve}/>

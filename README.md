@@ -6,6 +6,7 @@ Spirographer is a web app built in ReactJS that creates and overlays Spirographs
 
 * Add info icons for each parameter
 * Preview curve from parameter selection so curves can be seen before they are added
+* Add curve animation using pure CSS
 * Tiles for each added curve to allow easy selection/removal from canvas
 * Tighen constraints for curves mathematically
 * Add functionality to change curve thickness
@@ -15,3 +16,8 @@ Spirographer is a web app built in ReactJS that creates and overlays Spirographs
 * Added Epitrochoid switch
 * Dark Mode/Light mode
 * Add curve bookmarks?
+* Add Zoom functionality
+* Add Pan functionality
+* Output to image
+* Output to string
+* Create favicon
