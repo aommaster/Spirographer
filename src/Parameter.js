@@ -33,15 +33,16 @@ function Parameter(props) {
 
   function updateParameter(e){
     setValue(e.target.value);
-    props.callback(props.type, e.target.value);
+    props.callback(props.type, parseInt(e.target.value));
   }
   return (
     <div className="row">
       <div className="col-3">
-        <label htmlFor={props.type} className="col-form-label">{text}</label>
+        <label htmlFor={props.type + "Input"} className="col-form-label">{text}</label>
       </div>
       <div className="col-3">
-        <input type="text" id={props.type} className="form-control" onChange={updateParameter} value={stateValue}/>
+        <input type="text" id={props.type + "Input"} className="form-control" onChange={updateParameter} value={stateValue}/>
+        <input type="range" id={props.type + "Range"} min="0" max="300" onChange={updateParameter} value={stateValue}/>
       </div>
     </div>
     

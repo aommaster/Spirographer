@@ -5,19 +5,37 @@ function gcd(a, b) {
     return gcd(b, (a % b));
 }
 
-export function drawSpiroSVG(radius1, radius2, distance, rotation, pointsPerCurve) {
+export function randomParams(){
+  let R = Math.floor(Math.random() * Math.floor(300)) //Radius A 500
+  let r = Math.floor(Math.random() * Math.floor(300)) //Radius B 500
+  let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
+  let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
+  let p = 100 //Points per curve - Standardized at 500 for simple usage
+  let params = 
+    {
+      r1: R,
+      r2: r,
+      distance: d,
+      rotation: u,
+      ppc: p
+    }
+  return params;
+}
+
+export function generateSpiroPath(params) {
+  let {r1, r2, distance, rotation, ppc} = params;
   let origin = {
     x: 400,
     y: 300
   }
 
   let SVGPath = [];
-  let angleStep = 2 * Math.PI / pointsPerCurve;
-  let numRevolutions = radius2/gcd(radius1,radius2);
-  let numPoints = pointsPerCurve * numRevolutions
+  let angleStep = 2 * Math.PI / ppc;
+  let numRevolutions = r2/gcd(r1,r2);
+  let numPoints = ppc * numRevolutions
   let angle = parseFloat(rotation) * Math.PI / 180;
-  let radiusDifference = radius1 - radius2;
-  let radiusRatio = radiusDifference/radius2;
+  let radiusDifference = r1 - r2;
+  let radiusRatio = radiusDifference/r2;
 
   let oldPoint ={
     x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusRatio),

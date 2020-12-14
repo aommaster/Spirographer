@@ -16,36 +16,27 @@ class Canvas extends React.Component {
       activeCurve: 0
   }
   updateParameters(parameter, value){
-    console.log({...this.state.curveList});
-    /*let updatedProperty = {...this.state.curveList[this.state.activeCurve].params[parameter]};
-    this.setState(()=>(
-      {updatedPro: value})
-    )*/
+    let curveArray = [...this.state.curveList];
+    let modifiedCurve = curveArray[this.state.activeCurve];
+    modifiedCurve.params[parameter] = value;
+    modifiedCurve.path =spiroFunctions.generateSpiroPath(modifiedCurve.params);
+    curveArray[this.state.activeCurve] = modifiedCurve;
+    this.setState((prevState)=>({
+      curveList: curveArray
+    }))
   }
   randomCurve(){
-    let R = Math.floor(Math.random() * Math.floor(300)) //Radius A 500
-    let r = Math.floor(Math.random() * Math.floor(300)) //Radius B 500
-    let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
-    let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
-    let p = Math.floor(Math.random() * Math.floor(10)) //Points per curve
-    let params = 
-      {
-        r1: R,
-        r2: r,
-        distance: d,
-        rotation: u,
-        ppc: p
-      }
-    return params;
+    let randomParams = spiroFunctions.randomParams();
+    this.drawSpiro(randomParams)
   }
   drawSpiro(drawParams){
-    let newSVG = spiroFunctions.drawSpiroSVG(drawParams.r1, drawParams.r2, drawParams.distance, drawParams.rotation, drawParams.ppc);
+    let newSVG = spiroFunctions.generateSpiroPath(drawParams);
     this.setState((prevState) => ({
       curveList: [...prevState.curveList, {'params': drawParams, 'path':newSVG}]
     }))
   }
   componentDidMount(){
-    let randomParams = this.randomCurve();
+    let randomParams = spiroFunctions.randomParams();
     this.drawSpiro(randomParams)
   }
   render() {
@@ -61,7 +52,6 @@ class Canvas extends React.Component {
     if(this.state.curveList[this.state.activeCurve]!== undefined){
     ({params, path} = this.state.curveList[this.state.activeCurve]);
     }
-    
     return (
       <div className="container">
         <div className="row">
