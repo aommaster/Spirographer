@@ -22,4 +22,3 @@ Spirographer is a web app built in ReactJS that creates and overlays Spirographs
 * Add Pan functionality
 * Output to image
 * Output to string
-* Create favicon

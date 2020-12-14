@@ -6,10 +6,10 @@ function gcd(a, b) {
 }
 
 export function randomParams(){
-  let R = Math.floor(Math.random() * Math.floor(300)) //Radius A 500
-  let r = Math.floor(Math.random() * Math.floor(300)) //Radius B 500
-  let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
-  let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
+  let R = Math.floor(Math.random() * 300) +1//Radius A 500
+  let r = Math.floor(Math.random() * 300) +1//Radius B 500
+  let d = Math.floor(Math.random() * 300) +1//Distance 500
+  let u = Math.floor(Math.random() * Math.floor(361)) //Rotation
   let p = 100 //Points per circle - Standardized at 500 for simple usage
   let params = 
     {

@@ -2,6 +2,7 @@ import React from 'react';
 import CommandButton from './CommandButton';
 import Parameter from './Parameter';
 import Spirograph from './Spirograph';
+import SpiroTile from './SpiroTile';
 import * as spiroFunctions from './spirofunctions';
 
 class Canvas extends React.Component {
@@ -68,15 +69,20 @@ class Canvas extends React.Component {
     ({params, path} = this.state.curveList[this.state.activeCurve]);
     }
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-8">
-            <div id="canvasContainer" className="border">
+      <div className="container vh-100">
+        <div className="row h-100">
+          <div className="col-3">
+            <div id="tileContainer">
+              {this.state.curveList.map((spiro, index) => <SpiroTile key={index+1} name={`Curve ${index}`} path={spiro.path}/>)}
+            </div>
+          </div>
+          <div className="col-6">
+            <div id="canvasContainer" className="border overflow-hidden position-relative h-100">
                 {this.state.curveList.map((spiro, index) => <Spirograph key={index} path={spiro.path}/>)}
             </div>
           </div>
-          <div className="col-4">
-            <div className="parameterPanel">
+          <div className="col-3">
+            <div className="parameterPanel bg-light ml-2">
               <Parameter type='r1' callback={this.updateParameters} value={params.r1}/>
               <Parameter type='r2' callback={this.updateParameters} value={params.r2}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance}/>
