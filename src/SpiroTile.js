@@ -30,14 +30,16 @@ let bounds ={
       }
   } while (m);
   return (
-    <div className="row border">
+    <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'bg-info')} onClick={()=>{props.callback(props.tileIndex)}}>
       <div className="col-4">
-        <svg 
-          className="w-100 h-100" 
-          viewBox={`${bounds.minx-1} ${bounds.miny-1} ${bounds.maxx-bounds.minx+10} ${bounds.maxy - bounds.miny+10}`} 
-          fill="none">
-          <path d={`${props.path}`} stroke="black" strokeWidth={"1"}/>
-        </svg>
+        <div className="row m-1">
+          <svg 
+            className="w-100 h-100 bg-light p-1 rounded-3" 
+            viewBox={`${bounds.minx-1} ${bounds.miny-1} ${bounds.maxx-bounds.minx+10} ${bounds.maxy - bounds.miny+10}`} 
+            fill="none">
+            <path d={`${props.path}`} stroke="black" strokeWidth={"1"}/>
+          </svg>
+        </div>
       </div>
       <div className="col-8">
         <div className="row">

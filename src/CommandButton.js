@@ -2,17 +2,21 @@ import React from 'react';
 
 const buttonTypes={
   randomize:{
-    buttonText:"Randomize Curve"
+    buttonText:"Randomize Selection",
+    styles:"btn btn-primary"
   },
   add:{
-    buttonText:"Add Curve"
+    buttonText:"Add Curve",
+    styles:"btn btn-success"
   }
 }
 
 function CommandButton(props) {
-  const {buttonText} = buttonTypes[props.buttonType];
+  const {buttonText, styles} = buttonTypes[props.buttonType];
   return (
-    <button onClick={props.callback}>{buttonText}</button>
+    <div className="row">
+      <button className={styles + " mb-1"} onClick={props.callback}>{buttonText}</button>
+    </div>
   );
 }
 

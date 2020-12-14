@@ -12,10 +12,16 @@ class Canvas extends React.Component {
     this.addCurve = this.addCurve.bind(this);
     this.randomCurve = this.randomCurve.bind(this);
     this.drawSpiro = this.drawSpiro.bind(this);
+    this.changeCurve = this.changeCurve.bind(this);
   }
   state = {
       curveList: [],
       activeCurve: 0
+  }
+  changeCurve(index){
+    this.setState({
+      activeCurve:index
+    })
   }
   updateParameters(parameter, value){
     let curveArray = [...this.state.curveList];
@@ -63,17 +69,23 @@ class Canvas extends React.Component {
       rotation: 0,
       ppc: 0
     };
-    var path = "";
     
     if(this.state.curveList[this.state.activeCurve]!== undefined){
-    ({params, path} = this.state.curveList[this.state.activeCurve]);
+    ({params} = this.state.curveList[this.state.activeCurve]);
     }
     return (
       <div className="container vh-100">
         <div className="row h-100">
           <div className="col-3">
             <div id="tileContainer">
-              {this.state.curveList.map((spiro, index) => <SpiroTile key={index+1} name={`Curve ${index}`} path={spiro.path}/>)}
+              {this.state.curveList.map((spiro, index) => 
+                <SpiroTile 
+                  key={index+1} 
+                  name={`Curve ${index+1}`} 
+                  path={spiro.path}
+                  tileIndex = {index}
+                  selection={this.state.activeCurve}
+                  callback={this.changeCurve}/>)}
             </div>
           </div>
           <div className="col-6">
@@ -82,7 +94,7 @@ class Canvas extends React.Component {
             </div>
           </div>
           <div className="col-3">
-            <div className="parameterPanel bg-light ml-2">
+            <div className="parameterPanel bg-light">
               <Parameter type='r1' callback={this.updateParameters} value={params.r1}/>
               <Parameter type='r2' callback={this.updateParameters} value={params.r2}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance}/>

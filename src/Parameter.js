@@ -3,49 +3,63 @@ import React, {useState, useEffect} from 'react';
 const parameterData={
   'r1':{
     text:"Radius 1",
-    desc:"Radius of first gear"
+    desc:"Radius of first gear",
+    max: 300
   },
   'r2':{
     text:"Radius 2",
-    desc:"Radius of second gear"
+    desc:"Radius of second gear",
+    max: 300,
   },
   'distance':{
     text:"Distance",
-    desc:"Distance of drawing point from center of gear"
+    desc:"Distance of drawing point from center of gear",
+    max: 300,
   },
   'rotation':{
     text:"Rotation",
-    desc:"Initial rotation of curve"
+    desc:"Initial rotation of curve",
+    max: 360,
   },
   'ppc':{
     text:"Points",
-    desc:"Points per curve"
+    desc:"Points per curve",
+    max: 200,
   }
 }
 
 function Parameter(props) {
   const [stateValue, setValue] = useState(props.value);
-  const {text, desc} = parameterData[props.type];
+  const {text, desc, max} = parameterData[props.type];
 
   useEffect(() => {
     setValue(props.value)
   }, [props.value])
 
   function updateParameter(e){
+    if(e.target.value > max){
+      e.target.value = max;
+    }
+    if(e.target.value < 0){
+      e.target.value = 0;
+    }
     setValue(e.target.value);
     props.callback(props.type, parseInt(e.target.value));
   }
   return (
-    <div className="row">
-      <div className="col-3">
-        <label htmlFor={props.type + "Input"} className="col-form-label">{text}</label>
+    <div className="mb-3">
+      <div className="row">
+        <div className="col-8">
+          <label htmlFor={props.type + "Input"} className="col-form-label">{text}</label>
+        </div>
+        <div className="col-4">
+          <input type="number" id={props.type + "Input"} min="0" max={max} className="form-control" onChange={updateParameter} value={stateValue}/>
+        </div>
       </div>
-      <div className="col-3">
-        <input type="text" id={props.type + "Input"} className="form-control" onChange={updateParameter} value={stateValue}/>
-        <input type="range" id={props.type + "Range"} min="0" max="300" onChange={updateParameter} value={stateValue}/>
+      <div className="row">
+          <input type="range" id={props.type + "Range"} min="0" max={max} onChange={updateParameter} value={stateValue}/>
       </div>
     </div>
-    
   );
 }
 
