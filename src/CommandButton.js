@@ -1,11 +1,11 @@
 import React from 'react';
 
 const buttonTypes={
-  random:{
-    buttonText:"Random Curve"
+  randomize:{
+    buttonText:"Randomize Curve"
   },
-  draw:{
-    buttonText:"Draw Curve"
+  add:{
+    buttonText:"Add Curve"
   }
 }
 

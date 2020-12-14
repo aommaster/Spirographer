@@ -8,6 +8,7 @@ class Canvas extends React.Component {
   constructor(props){
     super(props);
     this.updateParameters = this.updateParameters.bind(this);
+    this.addCurve = this.addCurve.bind(this);
     this.randomCurve = this.randomCurve.bind(this);
     this.drawSpiro = this.drawSpiro.bind(this);
   }
@@ -25,9 +26,23 @@ class Canvas extends React.Component {
       curveList: curveArray
     }))
   }
+  addCurve(){
+    let params = spiroFunctions.randomParams();
+    this.drawSpiro(params);
+    this.setState((prevState)=>({
+      activeCurve: prevState.activeCurve+1
+    }))
+  }
   randomCurve(){
     let randomParams = spiroFunctions.randomParams();
-    this.drawSpiro(randomParams)
+    let curveArray = [...this.state.curveList];
+    let modifiedCurve = curveArray[this.state.activeCurve];
+    modifiedCurve.params = randomParams;
+    modifiedCurve.path =spiroFunctions.generateSpiroPath(randomParams);
+    curveArray[this.state.activeCurve] = modifiedCurve;
+    this.setState((prevState)=>({
+      curveList: curveArray
+    }))
   }
   drawSpiro(drawParams){
     let newSVG = spiroFunctions.generateSpiroPath(drawParams);
@@ -69,8 +84,8 @@ class Canvas extends React.Component {
               <Parameter type='ppc' callback={this.updateParameters} value={params.ppc}/>
             </div>
             <div className="buttonPanel">
-              <CommandButton buttonType='random' callback={this.randomCurve}/>
-              <CommandButton buttonType='draw' callback={this.drawSpiro}/>
+              <CommandButton buttonType='randomize' callback={this.randomCurve}/>
+              <CommandButton buttonType='add' callback={this.addCurve}/>
             </div>
           </div>
         </div>

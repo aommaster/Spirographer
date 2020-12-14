@@ -10,7 +10,7 @@ export function randomParams(){
   let r = Math.floor(Math.random() * Math.floor(300)) //Radius B 500
   let d = Math.floor(Math.random() * Math.floor(300)) //Distance 500
   let u = Math.floor(Math.random() * Math.floor(360)) //Rotation
-  let p = 100 //Points per curve - Standardized at 500 for simple usage
+  let p = 100 //Points per circle - Standardized at 500 for simple usage
   let params = 
     {
       r1: R,
@@ -27,6 +27,10 @@ export function generateSpiroPath(params) {
   let origin = {
     x: 400,
     y: 300
+  }
+
+  if (r1 ===0 || r2===0){
+    return "";
   }
 
   let SVGPath = [];
