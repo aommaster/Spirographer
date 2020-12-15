@@ -1,4 +1,4 @@
-function gcd(a, b) {
+export function gcd(a, b) {
   if (b === 0)
     return a;
   else

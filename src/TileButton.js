@@ -2,11 +2,11 @@ import React from 'react';
 
 const buttonTypes={
   play:{
-    name:"fa-play",
+    name:"fa-play text-muted",
     command:"play"
   },
   delete:{
-    name:"fa-trash-alt",
+    name:"fa-trash-alt text-danger",
     command:"delete"
   }
 }

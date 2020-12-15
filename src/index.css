@@ -5,12 +5,9 @@
 .selectedTile{
     background-color: white;
 }
-.fa-play{
-    color:black
-}
-.fa-trash-alt{
-    color:red
+.fas{
+    border: 1px solid transparent;
 }
 .fas:hover{
-    color: #555555;
+    border: 1px solid #cccccc;
 }

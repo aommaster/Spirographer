@@ -1,6 +1,7 @@
 import React from 'react';
 import CommandButton from './CommandButton';
 import Parameter from './Parameter';
+import Metric from './Metric';
 import Spirograph from './Spirograph';
 import SpiroTile from './SpiroTile';
 import * as spiroFunctions from './spirofunctions';
@@ -29,7 +30,9 @@ class Canvas extends React.Component {
         this.animateCurve(index);
         break;
       case "delete":
-        this.deleteCurve(index);
+        if (window.confirm('Delete curve?')) {
+          this.deleteCurve(index);
+        }
         break;
       default:
         break;
@@ -137,14 +140,19 @@ class Canvas extends React.Component {
             </div>
           </div>
           <div className="col-3">
-            <div className="parameterPanel bg-light">
+            <div id="parameterPanel" className="bg-light">
               <Parameter type='r1' callback={this.updateParameters} value={params.r1}/>
               <Parameter type='r2' callback={this.updateParameters} value={params.r2}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance}/>
+            </div>
+            <div>
+              <a href="#advanced" data-bs-toggle="collapse" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced Settings</a>            </div>
+            <div id="advanced" className="collapse multi-collapse">
               <Parameter type='rotation' callback={this.updateParameters} value={params.rotation}/>
               <Parameter type='ppc' callback={this.updateParameters} value={params.ppc}/>
+              <Metric params={params} type="GCD"/>
             </div>
-            <div className="buttonPanel">
+            <div id="buttonPanel" className="mt-3">
               <CommandButton buttonType='randomize' callback={this.randomCurve}/>
               <CommandButton buttonType='add' callback={this.addCurve}/>
             </div>
