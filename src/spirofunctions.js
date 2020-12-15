@@ -17,7 +17,9 @@ export function randomParams(){
       r2: r,
       distance: d,
       rotation: u,
-      ppc: p
+      ppc: p,
+      animation: 5,
+      animPlaying: false,
     }
   return params;
 }

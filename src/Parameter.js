@@ -25,6 +25,11 @@ const parameterData={
     text:"Points",
     desc:"Points per curve",
     max: 200,
+  },
+  'animation':{
+    text:"Animation Time",
+    desc:"Length of time the draw animation lasts",
+    max: 60,
   }
 }
 

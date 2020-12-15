@@ -15,6 +15,8 @@ class Canvas extends React.Component {
     this.drawSpiro = this.drawSpiro.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.changeCurve = this.changeCurve.bind(this);
+    this.animateCurve = this.animateCurve.bind(this);
+    this.stopAnimation = this.stopAnimation.bind(this);
     this.deleteCurve = this.deleteCurve.bind(this);
   }
   state = {
@@ -28,6 +30,9 @@ class Canvas extends React.Component {
         break;
       case "play":
         this.animateCurve(index);
+        break;
+      case "stop":
+        this.stopAnimation(index);
         break;
       case "delete":
         if (window.confirm('Delete curve?')) {
@@ -44,6 +49,8 @@ class Canvas extends React.Component {
     })
   }
   animateCurve(index){
+    this.updateParameters("animPlaying", true);
+    const animTime = this.state.curveList[index].params.animation;
     const pathObject = document.querySelector(`.spiro:nth-child(${index+1}) svg path`);
       const length = pathObject.getTotalLength();
       const baseStyle ={
@@ -52,15 +59,21 @@ class Canvas extends React.Component {
       }
       const animationStyle ={
         strokeDashoffset: 0,
-        transition: 'stroke-dashoffset 5s linear'
+        transition: `stroke-dashoffset ${animTime}s linear`
       }
       Object.assign(pathObject.style, baseStyle);
       setTimeout(function(){ 
         Object.assign(pathObject.style, animationStyle)
       }, 200);
-      setTimeout(function(){
+      setTimeout(() =>{
         pathObject.removeAttribute('style');
-      },5200)
+        this.updateParameters("animPlaying", false);
+      },animTime * 1000 + 200)      
+  }
+  stopAnimation(index){
+    const pathObject = document.querySelector(`.spiro:nth-child(${index+1}) svg path`);
+    pathObject.removeAttribute('style');
+    this.updateParameters("animPlaying", false);
   }
   deleteCurve(index){
     let curveArray = [...this.state.curveList];
@@ -113,7 +126,9 @@ class Canvas extends React.Component {
       r2: 0,
       distance: 0,
       rotation: 0,
-      ppc: 0
+      ppc: 0,
+      animation: 5,
+      animPlaying: false,
     };
     
     if(this.state.curveList[this.state.activeCurve]!== undefined){
@@ -131,7 +146,9 @@ class Canvas extends React.Component {
                   path={spiro.path}
                   tileIndex = {index}
                   selection={this.state.activeCurve}
-                  callback={this.handleClick}/>)}
+                  callback={this.handleClick}
+                  playing={spiro.params.animPlaying}
+                  />)}
             </div>
           </div>
           <div className="col-6">
@@ -150,6 +167,7 @@ class Canvas extends React.Component {
             <div id="advanced" className="collapse multi-collapse">
               <Parameter type='rotation' callback={this.updateParameters} value={params.rotation}/>
               <Parameter type='ppc' callback={this.updateParameters} value={params.ppc}/>
+              <Parameter type='animation' callback={this.updateParameters} value={params.animation}/>
               <Metric params={params} type="GCD"/>
             </div>
             <div id="buttonPanel" className="mt-3">

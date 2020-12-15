@@ -5,6 +5,10 @@ const buttonTypes={
     name:"fa-play text-muted",
     command:"play"
   },
+  stop:{
+    name:"fa-stop text-muted",
+    command:"stop"
+  },
   delete:{
     name:"fa-trash-alt text-danger",
     command:"delete"

@@ -45,7 +45,7 @@ let bounds ={
         <div className="row mt-1">
           <div className="col-8">{props.name}</div>
           <div className="col-4">
-            <TileButton type="play" callback={props.callback} tileIndex = {props.tileIndex}/>
+            <TileButton type={props.playing?"stop": "play"} callback={props.callback} tileIndex = {props.tileIndex}/>
           </div>
         </div>
         <div className="row mt-2">
