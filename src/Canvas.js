@@ -14,6 +14,7 @@ class Canvas extends React.Component {
     this.drawSpiro = this.drawSpiro.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.changeCurve = this.changeCurve.bind(this);
+    this.deleteCurve = this.deleteCurve.bind(this);
   }
   state = {
       curveList: [],
@@ -25,23 +26,10 @@ class Canvas extends React.Component {
         this.changeCurve(index);
         break;
       case "play":
-        const pathObject = document.querySelector(`.spiro:nth-child(${index+1}) svg path`);
-        const length = pathObject.getTotalLength();
-        const baseStyle ={
-          strokeDasharray: `${length}px`,
-          strokeDashoffset: `-${length}px`,
-        }
-        const animationStyle ={
-          strokeDashoffset: 0,
-          transition: 'stroke-dashoffset 5s linear'
-        }
-        Object.assign(pathObject.style, baseStyle);
-        setTimeout(function(){ 
-          Object.assign(pathObject.style, animationStyle)
-        }, 1000);
-        setTimeout(function(){
-          pathObject.removeAttribute('style');
-        },6000)
+        this.animateCurve(index);
+        break;
+      case "delete":
+        this.deleteCurve(index);
         break;
       default:
         break;
@@ -51,6 +39,32 @@ class Canvas extends React.Component {
     this.setState({
       activeCurve:index
     })
+  }
+  animateCurve(index){
+    const pathObject = document.querySelector(`.spiro:nth-child(${index+1}) svg path`);
+      const length = pathObject.getTotalLength();
+      const baseStyle ={
+        strokeDasharray: `${length}px`,
+        strokeDashoffset: `-${length}px`,
+      }
+      const animationStyle ={
+        strokeDashoffset: 0,
+        transition: 'stroke-dashoffset 5s linear'
+      }
+      Object.assign(pathObject.style, baseStyle);
+      setTimeout(function(){ 
+        Object.assign(pathObject.style, animationStyle)
+      }, 200);
+      setTimeout(function(){
+        pathObject.removeAttribute('style');
+      },5200)
+  }
+  deleteCurve(index){
+    let curveArray = [...this.state.curveList];
+    curveArray.splice(index,1);
+    this.setState((prevState)=>({
+      curveList: curveArray
+    }))
   }
   updateParameters(parameter, value){
     let curveArray = [...this.state.curveList];

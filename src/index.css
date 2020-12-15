@@ -1,5 +1,15 @@
 .tile{
     cursor: pointer;
+    background-color:#eeeeee
+}
+.selectedTile{
+    background-color: white;
+}
+.fa-play{
+    color:black
+}
+.fa-trash-alt{
+    color:red
 }
 .fas:hover{
     color: #555555;
