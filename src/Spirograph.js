@@ -7,7 +7,6 @@ function Spirograph(props) {
         <path d={`${props.path}`} stroke="black" strokeWidth={"1"}/>
       </svg>
     </div>
-    
   );
 }
 

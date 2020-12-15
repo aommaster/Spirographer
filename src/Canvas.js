@@ -12,11 +12,40 @@ class Canvas extends React.Component {
     this.addCurve = this.addCurve.bind(this);
     this.randomCurve = this.randomCurve.bind(this);
     this.drawSpiro = this.drawSpiro.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.changeCurve = this.changeCurve.bind(this);
   }
   state = {
       curveList: [],
       activeCurve: 0
+  }
+  handleClick(index, command){
+    switch (command){
+      case "select":
+        this.changeCurve(index);
+        break;
+      case "play":
+        const pathObject = document.querySelector(`.spiro:nth-child(${index+1}) svg path`);
+        const length = pathObject.getTotalLength();
+        const baseStyle ={
+          strokeDasharray: `${length}px`,
+          strokeDashoffset: `-${length}px`,
+        }
+        const animationStyle ={
+          strokeDashoffset: 0,
+          transition: 'stroke-dashoffset 5s linear'
+        }
+        Object.assign(pathObject.style, baseStyle);
+        setTimeout(function(){ 
+          Object.assign(pathObject.style, animationStyle)
+        }, 1000);
+        setTimeout(function(){
+          pathObject.removeAttribute('style');
+        },6000)
+        break;
+      default:
+        break;
+    }
   }
   changeCurve(index){
     this.setState({
@@ -85,7 +114,7 @@ class Canvas extends React.Component {
                   path={spiro.path}
                   tileIndex = {index}
                   selection={this.state.activeCurve}
-                  callback={this.changeCurve}/>)}
+                  callback={this.handleClick}/>)}
             </div>
           </div>
           <div className="col-6">

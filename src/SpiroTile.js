@@ -1,5 +1,5 @@
 import React from 'react';
-
+import TileButton from './TileButton';
 
 function SpiroTile(props) {
 var re = /[a-z](-?[0-9.]*)\s(-?[0-9.]*)/gi;
@@ -30,7 +30,7 @@ let bounds ={
       }
   } while (m);
   return (
-    <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'bg-info')} onClick={()=>{props.callback(props.tileIndex)}}>
+    <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'bg-info')} onClick={()=>{props.callback(props.tileIndex, "select")}}>
       <div className="col-4">
         <div className="row m-1">
           <svg 
@@ -43,9 +43,13 @@ let bounds ={
       </div>
       <div className="col-8">
         <div className="row">
-          <div>{props.name}</div>
+          <div className="col-8">{props.name}</div>
+          <div className="col-4">
+            <TileButton type="play" callback={props.callback} tileIndex = {props.tileIndex}/>
+          </div>
         </div>
         <div className="row">
+          
         </div>
       </div>
     </div>

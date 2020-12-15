@@ -6,6 +6,7 @@ Spirographer is a web app built in ReactJS that creates and overlays Spirographs
 
 * Create advanced settings panel to put Rotation and Points section
 * In advanced panel, add GCD and other spiro functions
+* In advanced panel, set curve animation time
 * Add info icons for each parameter
 * Add curve animation using pure CSS
 * Tiles for each added curve to allow easy removal from canvas
