@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/index.css"],"names":[],"mappings":"AAAA,MACI,cACJ,CACA,WACI,UACJ","file":"main.52311c09.chunk.css","sourcesContent":[".tile{\r\n    cursor: pointer;\r\n}\r\n.fas:hover{\r\n    color: #555555;\r\n}\r\n"]}
