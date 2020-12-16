@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/Spirographer/static/css/main.e43a345a.chunk.css",
-    "main.js": "/Spirographer/static/js/main.2f9cd771.chunk.js",
-    "main.js.map": "/Spirographer/static/js/main.2f9cd771.chunk.js.map",
+    "main.js": "/Spirographer/static/js/main.a3d55abf.chunk.js",
+    "main.js.map": "/Spirographer/static/js/main.a3d55abf.chunk.js.map",
     "runtime-main.js": "/Spirographer/static/js/runtime-main.b810b689.js",
     "runtime-main.js.map": "/Spirographer/static/js/runtime-main.b810b689.js.map",
-    "static/js/2.6990b163.chunk.js": "/Spirographer/static/js/2.6990b163.chunk.js",
-    "static/js/2.6990b163.chunk.js.map": "/Spirographer/static/js/2.6990b163.chunk.js.map",
+    "static/js/2.378f7d0c.chunk.js": "/Spirographer/static/js/2.378f7d0c.chunk.js",
+    "static/js/2.378f7d0c.chunk.js.map": "/Spirographer/static/js/2.378f7d0c.chunk.js.map",
     "static/js/3.82d4ca54.chunk.js": "/Spirographer/static/js/3.82d4ca54.chunk.js",
     "static/js/3.82d4ca54.chunk.js.map": "/Spirographer/static/js/3.82d4ca54.chunk.js.map",
     "index.html": "/Spirographer/index.html",
     "static/css/main.e43a345a.chunk.css.map": "/Spirographer/static/css/main.e43a345a.chunk.css.map",
-    "static/js/2.6990b163.chunk.js.LICENSE.txt": "/Spirographer/static/js/2.6990b163.chunk.js.LICENSE.txt"
+    "static/js/2.378f7d0c.chunk.js.LICENSE.txt": "/Spirographer/static/js/2.378f7d0c.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.b810b689.js",
-    "static/js/2.6990b163.chunk.js",
+    "static/js/2.378f7d0c.chunk.js",
     "static/css/main.e43a345a.chunk.css",
-    "static/js/main.2f9cd771.chunk.js"
+    "static/js/main.a3d55abf.chunk.js"
   ]
 }
