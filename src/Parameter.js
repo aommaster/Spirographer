@@ -17,7 +17,7 @@ const parameterData={
     max: 300,
   },
   'rotation':{
-    text:"Rotation",
+    text:"Phase",
     desc:"Initial rotation of curve",
     max: 360,
   },
@@ -39,7 +39,12 @@ function Parameter(props) {
 
   useEffect(() => {
     setValue(props.value);
-    window.$('[data-toggle="tooltip"]').tooltip();
+    try{
+      window.$('[data-toggle="tooltip"]').tooltip();
+    }
+    catch{
+      return;
+    }
   }, [props.value])
 
   function updateParameter(e){

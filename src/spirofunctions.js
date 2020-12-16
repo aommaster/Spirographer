@@ -6,11 +6,12 @@ export function gcd(a, b) {
 }
 
 export function randomParams(){
-  let R = Math.floor(Math.random() * 300) +1//Radius A 500
-  let r = Math.floor(Math.random() * 300) +1//Radius B 500
-  let d = Math.floor(Math.random() * 300) +1//Distance 500
-  let u = Math.floor(Math.random() * Math.floor(361)) //Rotation only works when PPC is low
-  let p = 100 //Points per circle - Standardized at 100 for simple usage
+  let R = Math.floor(Math.random() * 300) +1;//Radius A 500
+  let r = Math.floor(Math.random() * 300) +1;//Radius B 500
+  let d = Math.floor(Math.random() * 300) +1;//Distance 500
+  let u = Math.floor(Math.random() * Math.floor(361)); //Rotation only works when PPC is low
+  let p = 100; //Points per circle - Standardized at 100 for simple usage
+  let c =  Math.random() < 0.5?"epi":"hypo";
   let params = 
     {
       r1: R,
@@ -20,12 +21,13 @@ export function randomParams(){
       ppc: p,
       animation: 5,
       animPlaying: false,
+      curveType: c
     }
   return params;
 }
 
 export function generateSpiroPath(params) {
-  let {r1, r2, distance, rotation, ppc} = params;
+  let {r1, r2, distance, rotation, ppc, curveType} = params;
   let origin = {
     x: 400,
     y: 300
@@ -41,26 +43,49 @@ export function generateSpiroPath(params) {
   let numPoints = ppc * numRevolutions
   let angle = parseFloat(rotation) * Math.PI / 180;
   let radiusDifference = r1 - r2;
-  let radiusRatio = radiusDifference/r2;
-
-  let oldPoint ={
-    x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusRatio),
-    y:origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusRatio)
-  }
-  SVGPath.push(`M${oldPoint.x}`,`${oldPoint.y}`);
+  let radiusSum = r1 + r2;
+  let radiusDifferenceRatio = radiusDifference/r2;
+  let radiusSumRatio = radiusDifference/r2;
 
   
-  for(let i=0; i<numPoints; i++){
-    angle += angleStep;
-    let newPoint = {
-      x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusRatio),
-      y: origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusRatio)
-    } 
-    
-    SVGPath.push(`L${newPoint.x}`,`${newPoint.y}`);
-    oldPoint = {
-      x: newPoint.x,
-      y: newPoint.y
+  if(curveType==="hypo"){
+    let oldPoint ={
+      x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusDifferenceRatio),
+      y:origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusDifferenceRatio)
+    }
+    SVGPath.push(`M${oldPoint.x}`,`${oldPoint.y}`);
+    for(let i=0; i<numPoints; i++){
+      angle += angleStep;
+      let newPoint = {
+        x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusDifferenceRatio),
+        y: origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusDifferenceRatio)
+      } 
+      
+      SVGPath.push(`L${newPoint.x}`,`${newPoint.y}`);
+      oldPoint = {
+        x: newPoint.x,
+        y: newPoint.y
+      }
+    }
+  }
+  else{
+    let oldPoint ={
+      x: origin.x + radiusSum * Math.cos(angle) - distance * Math.cos(angle* radiusSumRatio),
+      y:origin.y + radiusSum * Math.sin(angle) - distance * Math.sin(angle* radiusSumRatio)
+    }
+    SVGPath.push(`M${oldPoint.x}`,`${oldPoint.y}`);
+    for(let i=0; i<numPoints; i++){
+      angle += angleStep;
+      let newPoint = {
+        x: origin.x + radiusSum * Math.cos(angle) - distance * Math.cos(angle* radiusSumRatio),
+        y: origin.y + radiusSum * Math.sin(angle) - distance * Math.sin(angle* radiusSumRatio)
+      } 
+      
+      SVGPath.push(`L${newPoint.x}`,`${newPoint.y}`);
+      oldPoint = {
+        x: newPoint.x,
+        y: newPoint.y
+      }
     }
   }
   SVGPath = SVGPath.join(" ");
