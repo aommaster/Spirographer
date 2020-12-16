@@ -5,9 +5,9 @@
 .selectedTile{
     background-color: white;
 }
-.fas{
+.fas-hover{
     border: 1px solid transparent;
 }
-.fas:hover{
+.fas-hover:hover{
     border: 1px solid #cccccc;
 }

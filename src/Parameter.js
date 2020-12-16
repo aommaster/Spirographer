@@ -38,7 +38,8 @@ function Parameter(props) {
   const {text, desc, max} = parameterData[props.type];
 
   useEffect(() => {
-    setValue(props.value)
+    setValue(props.value);
+    window.$('[data-toggle="tooltip"]').tooltip();
   }, [props.value])
 
   function updateParameter(e){
@@ -56,6 +57,7 @@ function Parameter(props) {
       <div className="row">
         <div className="col-8">
           <label htmlFor={props.type + "Input"} className={'col-form-label ' + (props.disabled===true ? "text-muted": "")}>{text}</label>
+          <i className={'p-1 fas fa-info-circle'} data-toggle="tooltip" title={desc}></i>
         </div>
         <div className="col-4">
           <input 

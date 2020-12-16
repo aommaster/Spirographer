@@ -8,6 +8,10 @@ const buttonTypes={
   add:{
     buttonText:"Add Curve",
     styles:"btn btn-success"
+  },
+  clear:{
+    buttonText:"Clear Canvas",
+    styles:"btn btn-danger"
   }
 }
 

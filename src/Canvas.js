@@ -18,6 +18,7 @@ class Canvas extends React.Component {
     this.animateCurve = this.animateCurve.bind(this);
     this.stopAnimation = this.stopAnimation.bind(this);
     this.deleteCurve = this.deleteCurve.bind(this);
+    this.clearCanvas = this.clearCanvas.bind(this);
   }
   state = {
       curveList: [],
@@ -101,6 +102,12 @@ class Canvas extends React.Component {
       activeCurve:prevState.activeCurve===index?null:index
     }))
   }
+  clearCanvas(){
+    this.setState((prevState)=>({
+      curveList: []
+    }))
+    this.changeCurve(null)
+  }
   randomCurve(){
     let randomParams = spiroFunctions.randomParams();
     let curveArray = [...this.state.curveList];
@@ -180,6 +187,7 @@ class Canvas extends React.Component {
             <div id="buttonPanel" className="mt-3">
               <CommandButton buttonType='randomize' callback={this.randomCurve}/>
               <CommandButton buttonType='add' callback={this.addCurve}/>
+              <CommandButton buttonType='clear' callback={this.clearCanvas}/>
             </div>
           </div>
         </div>
