@@ -38,9 +38,7 @@ class Canvas extends React.Component {
         this.stopAnimation(index);
         break;
       case "delete":
-        if (window.confirm('Delete curve?')) {
-          this.deleteCurve(index);
-        }
+        this.deleteCurve(index);
         break;
       default:
         break;
@@ -99,9 +97,9 @@ class Canvas extends React.Component {
     this.changeCurve(null)
   }
   changeCurve(index){
-    this.setState({
-      activeCurve:index
-    })
+    this.setState((prevState) => ({
+      activeCurve:prevState.activeCurve===index?null:index
+    }))
   }
   randomCurve(){
     let randomParams = spiroFunctions.randomParams();
@@ -161,6 +159,7 @@ class Canvas extends React.Component {
                   key={index} 
                   path={spiro.path} 
                   selected={this.state.activeCurve+1}
+                  active={this.state.activeCurve===index?true:false}
                 />)}
             </div>
           </div>
