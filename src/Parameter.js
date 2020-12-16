@@ -55,14 +55,22 @@ function Parameter(props) {
     <div className="mb-3">
       <div className="row">
         <div className="col-8">
-          <label htmlFor={props.type + "Input"} className="col-form-label">{text}</label>
+          <label htmlFor={props.type + "Input"} className={'col-form-label ' + (props.disabled===true ? "text-muted": "")}>{text}</label>
         </div>
         <div className="col-4">
-          <input type="number" id={props.type + "Input"} min="0" max={max} className="form-control" onChange={updateParameter} value={stateValue}/>
+          <input 
+            type="number" 
+            id={props.type + "Input"} 
+            min="0" 
+            max={max} 
+            className="form-control" 
+            onChange={updateParameter} 
+            value={stateValue}
+            disabled={props.disabled}/>
         </div>
       </div>
       <div className="row">
-          <input type="range" id={props.type + "Range"} min="0" max={max} onChange={updateParameter} value={stateValue}/>
+          <input type="range" id={props.type + "Range"} min="0" max={max} onChange={updateParameter} value={stateValue} disabled={props.disabled}/>
       </div>
     </div>
   );

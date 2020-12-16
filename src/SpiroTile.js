@@ -30,7 +30,7 @@ let bounds ={
       }
   } while (m);
   return (
-    <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'selectedTile')} onClick={()=>{props.callback(props.tileIndex, "select")}}>
+    <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'selectedTile')} onClick={(e)=>{props.callback(e, props.tileIndex, "select")}}>
       <div className="col-4">
         <div className="row m-1">
           <svg 

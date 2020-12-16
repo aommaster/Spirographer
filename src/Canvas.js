@@ -23,10 +23,13 @@ class Canvas extends React.Component {
       curveList: [],
       activeCurve: 0
   }
-  handleClick(index, command){
+  handleClick(e,index, command){
+    ;
     switch (command){
       case "select":
-        this.changeCurve(index);
+        if(e.target instanceof HTMLDivElement){
+          this.changeCurve(index);
+        }
         break;
       case "play":
         this.animateCurve(index);
@@ -42,11 +45,6 @@ class Canvas extends React.Component {
       default:
         break;
     }
-  }
-  changeCurve(index){
-    this.setState({
-      activeCurve:index
-    })
   }
   animateCurve(index){
     this.updateParameters("animPlaying", true);
@@ -75,13 +73,6 @@ class Canvas extends React.Component {
     pathObject.removeAttribute('style');
     this.updateParameters("animPlaying", false);
   }
-  deleteCurve(index){
-    let curveArray = [...this.state.curveList];
-    curveArray.splice(index,1);
-    this.setState((prevState)=>({
-      curveList: curveArray
-    }))
-  }
   updateParameters(parameter, value){
     let curveArray = [...this.state.curveList];
     let modifiedCurve = curveArray[this.state.activeCurve];
@@ -96,8 +87,21 @@ class Canvas extends React.Component {
     let params = spiroFunctions.randomParams();
     this.drawSpiro(params);
     this.setState((prevState)=>({
-      activeCurve: prevState.activeCurve+1
+      activeCurve: prevState.curveList.length-1
     }))
+  }
+  deleteCurve(index){
+    let curveArray = [...this.state.curveList];
+    curveArray.splice(index,1);
+    this.setState((prevState)=>({
+      curveList: curveArray
+    }))
+    this.changeCurve(null)
+  }
+  changeCurve(index){
+    this.setState({
+      activeCurve:index
+    })
   }
   randomCurve(){
     let randomParams = spiroFunctions.randomParams();
@@ -130,7 +134,6 @@ class Canvas extends React.Component {
       animation: 5,
       animPlaying: false,
     };
-    
     if(this.state.curveList[this.state.activeCurve]!== undefined){
     ({params} = this.state.curveList[this.state.activeCurve]);
     }
@@ -153,21 +156,26 @@ class Canvas extends React.Component {
           </div>
           <div className="col-6">
             <div id="canvasContainer" className="border overflow-hidden position-relative h-100">
-                {this.state.curveList.map((spiro, index) => <Spirograph key={index} path={spiro.path}/>)}
+                {this.state.curveList.map((spiro, index) => 
+                <Spirograph 
+                  key={index} 
+                  path={spiro.path} 
+                  selected={this.state.activeCurve+1}
+                />)}
             </div>
           </div>
           <div className="col-3">
             <div id="parameterPanel" className="bg-light">
-              <Parameter type='r1' callback={this.updateParameters} value={params.r1}/>
-              <Parameter type='r2' callback={this.updateParameters} value={params.r2}/>
-              <Parameter type='distance' callback={this.updateParameters} value={params.distance}/>
+              <Parameter type='r1' callback={this.updateParameters} value={params.r1} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='r2' callback={this.updateParameters} value={params.r2} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='distance' callback={this.updateParameters} value={params.distance} disabled={this.state.activeCurve===null?true:false}/>
             </div>
             <div>
               <a href="#advanced" data-bs-toggle="collapse" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced Settings</a>            </div>
             <div id="advanced" className="collapse multi-collapse">
-              <Parameter type='rotation' callback={this.updateParameters} value={params.rotation}/>
-              <Parameter type='ppc' callback={this.updateParameters} value={params.ppc}/>
-              <Parameter type='animation' callback={this.updateParameters} value={params.animation}/>
+              <Parameter type='rotation' callback={this.updateParameters} value={params.rotation} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='ppc' callback={this.updateParameters} value={params.ppc} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='animation' callback={this.updateParameters} value={params.animation} disabled={this.state.activeCurve===null?true:false}/>
               <Metric params={params} type="GCD"/>
             </div>
             <div id="buttonPanel" className="mt-3">
