@@ -8,13 +8,13 @@ function CurveParameter(props) {
   }
   return (
     <div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="epi" name="curveType" class="custom-control-input" checked={props.value==="epi"?true:false} disabled={props.disabled} onChange={updateParameter}/>
-        <label class="custom-control-label" for="epi">Epitrochoid</label>
+      <div className="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="epi" name="curveType" className="custom-control-input" checked={props.value==="epi"?true:false} disabled={props.disabled} onChange={updateParameter}/>
+        <label className="custom-control-label ms-1" htmlFor="epi">Epitrochoid</label>
       </div>
-      <div class="custom-control custom-radio custom-control-inline">
-        <input type="radio" id="hypo" name="curveType" class="custom-control-input" checked={props.value==="hypo"?true:false} disabled={props.disabled} onChange={updateParameter}/>
-        <label class="custom-control-label" for="hypo">Hypotrochoid</label>
+      <div className="custom-control custom-radio custom-control-inline">
+        <input type="radio" id="hypo" name="curveType" className="custom-control-input" checked={props.value==="hypo"?true:false} disabled={props.disabled} onChange={updateParameter}/>
+        <label className="custom-control-label ms-1" htmlFor="hypo">Hypotrochoid</label>
       </div>
     </div>
 

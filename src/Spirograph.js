@@ -74,7 +74,7 @@ let bounds ={
   return (
     <div className="spiro position-absolute">
       <svg className="overflow-visible" height="800" width="600" viewBox="0 0 800 800" fill="none" onMouseDown={func1} onMouseMove={func2} onMouseUp={func3}>
-        <path d={`${props.path}`} stroke="black" strokeWidth={"1"}/>
+        <path d={`${props.path}`} stroke={`${props.color}`} strokeWidth={`${props.stroke/10}`}/>
         <rect x={bounds.minx-1} y={bounds.miny-1} width={bounds.maxx - bounds.minx+1} height={bounds.maxy- bounds.miny+1} style={{fill:'none',stroke:'lightblue',strokeWidth:"2px",strokeOpacity:props.active?1:0}} />
       </svg>
     </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import CommandButton from './CommandButton';
 import Parameter from './Parameter';
 import CurveParameter from './CurveParameter';
+import ColorParameter from './ColorParameter';
 import Metric from './Metric';
 import Spirograph from './Spirograph';
 import SpiroTile from './SpiroTile';
@@ -141,6 +142,8 @@ class Canvas extends React.Component {
       animPlaying: false,
       curveType:"epi",
       scale:1,
+      color:'#010101', //Not exactly black because Windows color picker is bugged and won't trigger onChange events
+      stroke: 1,
     };
     if(this.state.curveList[this.state.activeCurve]!== undefined){
     ({params} = this.state.curveList[this.state.activeCurve]);
@@ -148,7 +151,7 @@ class Canvas extends React.Component {
     return (
       <div className="container vh-100">
         <div className="row h-100">
-          <div className="col-3">
+          <div className="col-2">
             <div id="tileContainer">
               {this.state.curveList.map((spiro, index) => 
                 <SpiroTile 
@@ -159,10 +162,12 @@ class Canvas extends React.Component {
                   selection={this.state.activeCurve}
                   callback={this.handleClick}
                   playing={spiro.params.animPlaying}
+                  color={spiro.params.color}
+                  stroke={spiro.params.stroke}
                   />)}
             </div>
           </div>
-          <div className="col-6">
+          <div className="col-7">
             <div id="canvasContainer" className="border overflow-hidden position-relative h-100">
                 {this.state.curveList.map((spiro, index) => 
                 <Spirograph 
@@ -170,6 +175,8 @@ class Canvas extends React.Component {
                   path={spiro.path} 
                   selected={this.state.activeCurve+1}
                   active={this.state.activeCurve===index?true:false}
+                  color={spiro.params.color}
+                  stroke={spiro.params.stroke}
                 />)}
             </div>
           </div>
@@ -179,7 +186,9 @@ class Canvas extends React.Component {
               <Parameter type='r2' callback={this.updateParameters} value={params.r2} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='scale' callback={this.updateParameters} value={params.scale} disabled={this.state.activeCurve===null?true:false}/>
-              <CurveParameter type="curveType" callback={this.updateParameters} value={params.curveType} disabled={this.state.activeCurve===null?true:false}/>
+              <CurveParameter type='curveType'  callback={this.updateParameters} value={params.curveType} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='stroke' callback={this.updateParameters} value={params.stroke} disabled={this.state.activeCurve===null?true:false}/>
+              <ColorParameter  type='color' callback={this.updateParameters} value={params.color} disabled={this.state.activeCurve===null?true:false}/>
             </div>
             <div>
               <a href="#advanced" data-bs-toggle="collapse" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced Settings</a>            </div>

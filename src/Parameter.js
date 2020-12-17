@@ -35,6 +35,11 @@ const parameterData={
     text:"Scale %",
     desc:"Overall scale factor of the curve",
     max: 500,
+  },
+  'stroke':{
+    text:"Stroke",
+    desc:"Thickness of the curve",
+    max: 100,
   }
 }
 

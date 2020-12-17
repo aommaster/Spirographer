@@ -24,6 +24,8 @@ export function randomParams(){
       animPlaying: false,
       curveType: c,
       scale: 100,
+      color:'#010101', //Not exactly black because Windows color picker is bugged and won't trigger onChange events
+      stroke: 10,
     }
   return params;
 }
