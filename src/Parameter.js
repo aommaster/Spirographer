@@ -30,6 +30,11 @@ const parameterData={
     text:"Animation Time",
     desc:"Length of time the draw animation lasts",
     max: 60,
+  },
+  'scale':{
+    text:"Scale %",
+    desc:"Overall scale factor of the curve",
+    max: 500,
   }
 }
 
@@ -39,11 +44,8 @@ function Parameter(props) {
 
   useEffect(() => {
     setValue(props.value);
-    try{
+    if (typeof window.$('[data-toggle="tooltip"]').tooltip === "function"){
       window.$('[data-toggle="tooltip"]').tooltip();
-    }
-    catch{
-      return;
     }
   }, [props.value])
 

@@ -1,13 +1,7 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
 
 
 function CurveParameter(props) {
-  const [stateValue, setValue] = useState(props.value);
-
-  useEffect(() => {
-    setValue(props.value);
-    window.$('[data-toggle="tooltip"]').tooltip();
-  }, [props.value])
 
   function updateParameter(e){
     props.callback(props.type, e.target.id);

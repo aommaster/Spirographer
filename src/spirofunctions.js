@@ -11,7 +11,8 @@ export function randomParams(){
   let d = Math.floor(Math.random() * 300) +1;//Distance 500
   let u = Math.floor(Math.random() * Math.floor(361)); //Rotation only works when PPC is low
   let p = 100; //Points per circle - Standardized at 100 for simple usage
-  let c =  Math.random() < 0.5?"epi":"hypo";
+  let c =  Math.random() < 0.5?"epi":"hypo" //Curve type;
+  let s = 1 //Scale;
   let params = 
     {
       r1: R,
@@ -21,17 +22,20 @@ export function randomParams(){
       ppc: p,
       animation: 5,
       animPlaying: false,
-      curveType: c
+      curveType: c,
+      scale: 100,
     }
   return params;
 }
 
 export function generateSpiroPath(params) {
-  let {r1, r2, distance, rotation, ppc, curveType} = params;
+  let {r1, r2, distance, rotation, ppc, curveType, scale} = params;
   let origin = {
     x: 400,
     y: 300
   }
+
+  scale = scale / 100
 
   if (r1 ===0 || r2===0){
     return "";
@@ -53,7 +57,7 @@ export function generateSpiroPath(params) {
       x: origin.x + radiusDifference * Math.cos(angle) + distance * Math.cos(angle* radiusDifferenceRatio),
       y:origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusDifferenceRatio)
     }
-    SVGPath.push(`M${oldPoint.x}`,`${oldPoint.y}`);
+    SVGPath.push(`M${scale * oldPoint.x}`,`${scale * oldPoint.y}`);
     for(let i=0; i<numPoints; i++){
       angle += angleStep;
       let newPoint = {
@@ -61,7 +65,7 @@ export function generateSpiroPath(params) {
         y: origin.y + radiusDifference * Math.sin(angle) - distance * Math.sin(angle* radiusDifferenceRatio)
       } 
       
-      SVGPath.push(`L${newPoint.x}`,`${newPoint.y}`);
+      SVGPath.push(`L${scale * newPoint.x}`,`${scale * newPoint.y}`);
       oldPoint = {
         x: newPoint.x,
         y: newPoint.y
@@ -73,7 +77,7 @@ export function generateSpiroPath(params) {
       x: origin.x + radiusSum * Math.cos(angle) - distance * Math.cos(angle* radiusSumRatio),
       y:origin.y + radiusSum * Math.sin(angle) - distance * Math.sin(angle* radiusSumRatio)
     }
-    SVGPath.push(`M${oldPoint.x}`,`${oldPoint.y}`);
+    SVGPath.push(`M${scale * oldPoint.x}`,`${scale * oldPoint.y}`);
     for(let i=0; i<numPoints; i++){
       angle += angleStep;
       let newPoint = {
@@ -81,7 +85,7 @@ export function generateSpiroPath(params) {
         y: origin.y + radiusSum * Math.sin(angle) - distance * Math.sin(angle* radiusSumRatio)
       } 
       
-      SVGPath.push(`L${newPoint.x}`,`${newPoint.y}`);
+      SVGPath.push(`L${scale * newPoint.x}`,`${scale * newPoint.y}`);
       oldPoint = {
         x: newPoint.x,
         y: newPoint.y

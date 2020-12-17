@@ -139,7 +139,8 @@ class Canvas extends React.Component {
       ppc: 0,
       animation: 5,
       animPlaying: false,
-      curveType:"epi"
+      curveType:"epi",
+      scale:1,
     };
     if(this.state.curveList[this.state.activeCurve]!== undefined){
     ({params} = this.state.curveList[this.state.activeCurve]);
@@ -177,6 +178,7 @@ class Canvas extends React.Component {
               <Parameter type='r1' callback={this.updateParameters} value={params.r1} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='r2' callback={this.updateParameters} value={params.r2} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance} disabled={this.state.activeCurve===null?true:false}/>
+              <Parameter type='scale' callback={this.updateParameters} value={params.scale} disabled={this.state.activeCurve===null?true:false}/>
               <CurveParameter type="curveType" callback={this.updateParameters} value={params.curveType} disabled={this.state.activeCurve===null?true:false}/>
             </div>
             <div>
