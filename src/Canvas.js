@@ -21,6 +21,7 @@ class Canvas extends React.Component {
     this.stopAnimation = this.stopAnimation.bind(this);
     this.deleteCurve = this.deleteCurve.bind(this);
     this.clearCanvas = this.clearCanvas.bind(this);
+    this.saveCanvas = this.saveCanvas.bind(this);
   }
   state = {
       curveList: [],
@@ -77,7 +78,13 @@ class Canvas extends React.Component {
   updateParameters(parameter, value){
     let curveArray = [...this.state.curveList];
     let modifiedCurve = curveArray[this.state.activeCurve];
-    modifiedCurve.params[parameter] = value;
+    if(parameter==="x" || parameter==="y"){
+      modifiedCurve.params[parameter] += value;
+    }
+    else{
+      modifiedCurve.params[parameter] = value;
+    }
+    
     modifiedCurve.path =spiroFunctions.generateSpiroPath(modifiedCurve.params);
     curveArray[this.state.activeCurve] = modifiedCurve;
     this.setState((prevState)=>({
@@ -109,6 +116,54 @@ class Canvas extends React.Component {
       curveList: []
     }))
     this.changeCurve(null)
+  }
+  saveCanvas(){
+    let curveArray = [...this.state.curveList];
+    let parent = document.createElement("div");
+    var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("fill", 'none');
+    svg.setAttribute("xmlns", 'http://www.w3.org/2000/svg');
+    let re = /[a-z](-?[0-9.]*)\s(-?[0-9.]*)/gi;
+    let m;
+    let bounds ={
+      minx:999,
+      miny:999,
+      maxx:-999,
+      maxy:-999
+    }
+    curveArray.forEach((modifiedCurve, index)=>{
+      let pathElement = document.querySelector(`#canvasContainer .spiro:nth-child(${index+1}) svg path`).cloneNode(true);
+      svg.appendChild(pathElement);
+      do {
+        m = re.exec(pathElement.attributes.d.value);
+        if (m) {
+            let x = parseFloat(m[1]);
+            let y = parseFloat(m[2]);
+            if(x > bounds.maxx){
+              bounds.maxx = x;
+            }
+            if(x < bounds.minx){
+              bounds.minx = x;
+            }
+            if(y > bounds.maxy){
+              bounds.maxy = y;
+            }
+            if(y < bounds.miny){
+              bounds.miny = y;
+            }
+        }
+    } while (m);
+    })
+    svg.setAttribute("width",`${bounds.maxx-bounds.minx+200}`);
+    svg.setAttribute("height",`${bounds.maxy - bounds.miny+200}`); 
+    svg.setAttribute('viewBox',`${bounds.minx-100} ${bounds.miny-100} ${bounds.maxx-bounds.minx+200} ${bounds.maxy - bounds.miny+200}`);
+    parent.appendChild(svg);
+    const blob = new Blob([parent.innerHTML.toString()]);
+    const element = document.createElement("a");
+    element.download = "Spirograher Canvas.svg";
+    element.href = window.URL.createObjectURL(blob);
+    element.click();
+    element.remove();
   }
   randomCurve(){
     let randomParams = spiroFunctions.randomParams();
@@ -144,6 +199,8 @@ class Canvas extends React.Component {
       scale:1,
       color:'#010101', //Not exactly black because Windows color picker is bugged and won't trigger onChange events
       stroke: 1,
+      x: 0,
+      y: 0
     };
     if(this.state.curveList[this.state.activeCurve]!== undefined){
     ({params} = this.state.curveList[this.state.activeCurve]);
@@ -168,7 +225,11 @@ class Canvas extends React.Component {
             </div>
           </div>
           <div className="col-7">
+            <div id="outputContainer" className="d-none">
+
+            </div>
             <div id="canvasContainer" className="border overflow-hidden position-relative h-100">
+              
                 {this.state.curveList.map((spiro, index) => 
                 <Spirograph 
                   key={index} 
@@ -177,6 +238,7 @@ class Canvas extends React.Component {
                   active={this.state.activeCurve===index?true:false}
                   color={spiro.params.color}
                   stroke={spiro.params.stroke}
+                  callback={this.updateParameters}
                 />)}
             </div>
           </div>
@@ -202,6 +264,7 @@ class Canvas extends React.Component {
               <CommandButton buttonType='randomize' callback={this.randomCurve}/>
               <CommandButton buttonType='add' callback={this.addCurve}/>
               <CommandButton buttonType='clear' callback={this.clearCanvas}/>
+              <CommandButton buttonType='save' callback={this.saveCanvas}/>
             </div>
           </div>
         </div>

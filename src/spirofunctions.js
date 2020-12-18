@@ -11,8 +11,10 @@ export function randomParams(){
   let d = Math.floor(Math.random() * 300) +1;//Distance 500
   let u = Math.floor(Math.random() * Math.floor(361)); //Rotation only works when PPC is low
   let p = 100; //Points per circle - Standardized at 100 for simple usage
-  let c =  Math.random() < 0.5?"epi":"hypo" //Curve type;
-  let s = 1 //Scale;
+  let c =  Math.random() < 0.5?"epi":"hypo"; //Curve type;
+  let s = 10; //Scale;
+  let x = 0;
+  let y = 0;
   let params = 
     {
       r1: R,
@@ -25,19 +27,21 @@ export function randomParams(){
       curveType: c,
       scale: 100,
       color:'#010101', //Not exactly black because Windows color picker is bugged and won't trigger onChange events
-      stroke: 10,
+      stroke: s,
+      x: x,
+      y: y,
     }
   return params;
 }
 
 export function generateSpiroPath(params) {
-  let {r1, r2, distance, rotation, ppc, curveType, scale} = params;
-  let origin = {
-    x: 400,
-    y: 300
-  }
-
+  let {r1, r2, distance, rotation, ppc, curveType, scale, x, y} = params;
   scale = scale / 100
+  let origin={
+    x:x/scale,
+    y:y/scale
+  }
+  
 
   if (r1 ===0 || r2===0){
     return "";

@@ -2,8 +2,8 @@ import React from 'react';
 import TileButton from './TileButton';
 
 function SpiroTile(props) {
-var re = /[a-z](-?[0-9.]*)\s(-?[0-9.]*)/gi;
-var m;
+let re = /[a-z](-?[0-9.]*)\s(-?[0-9.]*)/gi;
+let m;
 let bounds ={
   minx:999,
   miny:999,
@@ -35,7 +35,7 @@ let bounds ={
         <div className="row m-1">
           <svg 
             className="w-100 h-100 p-1 rounded-3" 
-            viewBox={`${bounds.minx-1} ${bounds.miny-1} ${bounds.maxx-bounds.minx+10} ${bounds.maxy - bounds.miny+10}`} 
+            viewBox={`${bounds.minx-10} ${bounds.miny-10} ${bounds.maxx-bounds.minx+20} ${bounds.maxy - bounds.miny+20}`} 
             fill="none">
             <path d={`${props.path}`} stroke={`${props.color}`} strokeWidth={`${props.stroke}`}/>
           </svg>

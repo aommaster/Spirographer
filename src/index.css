@@ -11,3 +11,6 @@
 .fas-hover:hover{
     border: 1px solid #cccccc;
 }
+#spiroMover{
+    z-index:99;
+}

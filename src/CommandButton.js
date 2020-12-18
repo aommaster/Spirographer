@@ -7,11 +7,15 @@ const buttonTypes={
   },
   add:{
     buttonText:"Add Curve",
-    styles:"btn btn-success"
+    styles:"btn btn-primary"
   },
   clear:{
     buttonText:"Clear Canvas",
     styles:"btn btn-danger"
+  },
+  save:{
+    buttonText:"Export to SVG",
+    styles:"btn btn-success"
   }
 }
 
