@@ -27,7 +27,7 @@ const parameterData={
     max: 200,
   },
   'animation':{
-    text:"Animation Time",
+    text:"Animation",
     desc:"Length of time the draw animation lasts",
     max: 60,
   },
@@ -65,13 +65,13 @@ function Parameter(props) {
     props.callback(props.type, parseInt(e.target.value));
   }
   return (
-    <div className="mb-3">
+    <div className="mb-3 col-3 col-sm-12">
       <div className="row">
-        <div className="col-8">
+        <div className="col-xl-7 col-md-12">
           <label htmlFor={props.type + "Input"} className={'col-form-label ' + (props.disabled===true ? "text-muted": "")}>{text}</label>
           <i className={'p-1 fas fa-info-circle'} data-toggle="tooltip" title={desc}></i>
         </div>
-        <div className="col-4">
+        <div className="col-xl-5 col-md-12">
           <input 
             type="number" 
             id={props.type + "Input"} 

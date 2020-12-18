@@ -14,3 +14,54 @@
 #spiroMover{
     z-index:99;
 }
+
+@media (max-width: 575.99px) {
+    .curveText{
+        display:none;
+    }
+    .curveNumber{
+        font-size:4rem;
+    }
+    .tileContentContainer{
+        position:relative;
+    }
+    .tileButtonsContainer{
+        position:absolute;
+        opacity:0.25
+    }
+    .tileButtonsContainer:hover{
+        opacity:1;
+    }
+    .tileTextContainer{
+        position:absolute;
+    }
+    .tile{
+        height:100px;
+        overflow:hidden
+    }
+    .buttonText{
+        display:none
+    }
+}
+
+@media (min-width: 576px) {
+    .buttonIcon{
+        display:none
+    }
+}
+
+@media (min-width: 768px) {
+
+}
+
+@media (min-width: 992px) {
+
+}
+
+@media (min-width: 1200px) {
+
+}
+
+@media (min-width: 1400px) {
+
+}

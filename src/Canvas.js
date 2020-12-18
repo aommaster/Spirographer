@@ -206,14 +206,14 @@ class Canvas extends React.Component {
     ({params} = this.state.curveList[this.state.activeCurve]);
     }
     return (
-      <div className="container vh-100">
+      <div className="container-xl vh-100 p-3">
         <div className="row h-100">
-          <div className="col-2">
+          <div className="col-2 col-xl-3 order-1 order-sm1">
             <div id="tileContainer">
               {this.state.curveList.map((spiro, index) => 
                 <SpiroTile 
                   key={index+1} 
-                  name={`Curve ${index+1}`} 
+                  name={`${index+1}`} 
                   path={spiro.path}
                   tileIndex = {index}
                   selection={this.state.activeCurve}
@@ -224,7 +224,7 @@ class Canvas extends React.Component {
                   />)}
             </div>
           </div>
-          <div className="col-7">
+          <div className="col-7 col-xl-6 order-2 order-sm-2">
             <div id="outputContainer" className="d-none">
 
             </div>
@@ -242,8 +242,8 @@ class Canvas extends React.Component {
                 />)}
             </div>
           </div>
-          <div className="col-3">
-            <div id="parameterPanel" className="bg-light">
+          <div className="col-sm-3 col-12 order-0 order-sm-3">
+            <div id="parameterPanel" className="bg-light row">
               <Parameter type='r1' callback={this.updateParameters} value={params.r1} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='r2' callback={this.updateParameters} value={params.r2} disabled={this.state.activeCurve===null?true:false}/>
               <Parameter type='distance' callback={this.updateParameters} value={params.distance} disabled={this.state.activeCurve===null?true:false}/>
@@ -252,19 +252,23 @@ class Canvas extends React.Component {
               <Parameter type='stroke' callback={this.updateParameters} value={params.stroke} disabled={this.state.activeCurve===null?true:false}/>
               <ColorParameter  type='color' callback={this.updateParameters} value={params.color} disabled={this.state.activeCurve===null?true:false}/>
             </div>
-            <div>
+            <div className="row">
               <a href="#advanced" data-bs-toggle="collapse" aria-expanded="false" aria-controls="multiCollapseExample1">Advanced Settings</a>            </div>
             <div id="advanced" className="collapse multi-collapse">
-              <Parameter type='rotation' callback={this.updateParameters} value={params.rotation} disabled={this.state.activeCurve===null?true:false}/>
-              <Parameter type='ppc' callback={this.updateParameters} value={params.ppc} disabled={this.state.activeCurve===null?true:false}/>
-              <Parameter type='animation' callback={this.updateParameters} value={params.animation} disabled={this.state.activeCurve===null?true:false}/>
-              <Metric params={params} type="GCD"/>
+              <div className="row">
+                <Parameter type='rotation' callback={this.updateParameters} value={params.rotation} disabled={this.state.activeCurve===null?true:false}/>
+                <Parameter type='ppc' callback={this.updateParameters} value={params.ppc} disabled={this.state.activeCurve===null?true:false}/>
+                <Parameter type='animation' callback={this.updateParameters} value={params.animation} disabled={this.state.activeCurve===null?true:false}/>
+                <Metric params={params} type="GCD"/>
+              </div>
             </div>
             <div id="buttonPanel" className="mt-3">
-              <CommandButton buttonType='randomize' callback={this.randomCurve}/>
-              <CommandButton buttonType='add' callback={this.addCurve}/>
-              <CommandButton buttonType='clear' callback={this.clearCanvas}/>
-              <CommandButton buttonType='save' callback={this.saveCanvas}/>
+              <div className="row">
+                <CommandButton buttonType='randomize' callback={this.randomCurve}/>
+                <CommandButton buttonType='add' callback={this.addCurve}/>
+                <CommandButton buttonType='clear' callback={this.clearCanvas}/>
+                <CommandButton buttonType='save' callback={this.saveCanvas}/>
+              </div>
             </div>
           </div>
         </div>

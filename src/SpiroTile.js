@@ -31,7 +31,7 @@ let bounds ={
   } while (m);
   return (
     <div className={"row border rounded-3 tile " + (props.selection===props.tileIndex && 'selectedTile')} onClick={(e)=>{props.callback(e, props.tileIndex, "select")}}>
-      <div className="col-5">
+      <div className="col-5 d-none d-lg-block">
         <div className="row m-1">
           <svg 
             className="w-100 h-100 p-1 rounded-3" 
@@ -41,15 +41,23 @@ let bounds ={
           </svg>
         </div>
       </div>
-      <div className="col-7">
-        <div className="row mt-1">
-          <div className="col-8">{props.name}</div>
+      <div className="col-lg-7 col-sm-12 col-xs-12 tileContentContainer">
+        <div className="row mt-1 tileTextContainer w-100">
+          <div className="col-12">
+            <div className="row">
+              <p className="text-end">
+                <span className="curveName"><span className="curveText">Curve </span><span className="curveNumber">{props.name}</span></span>
+
+              </p>
+
+            </div>
+          </div>
         </div>
-        <div className="row mt-2">
-          <div className="col-8">
+        <div className="row mt-2 tileButtonsContainer">
+          <div className="col-12 col-sm-6">
             <TileButton type={props.playing?"stop": "play"} callback={props.callback} tileIndex = {props.tileIndex}/>
           </div>
-          <div className="col-4">
+          <div className="col-12 col-sm-6">
             <TileButton type="delete" callback={props.callback} tileIndex = {props.tileIndex}/>
           </div>
         </div>

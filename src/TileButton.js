@@ -19,7 +19,7 @@ function TileButton(props) {
   const {name, command} = buttonTypes[props.type];
   return (
     <div>
-      <i className={'p-1 fas fas-hover rounded-3 ' + name} onClick={(e)=>{props.callback(e, props.tileIndex, command)}}></i>
+      <i className={'p-1 fas fas-hover fa-2x rounded-3 ' + name} onClick={(e)=>{props.callback(e, props.tileIndex, command)}}></i>
     </div>
   );
 }

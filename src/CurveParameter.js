@@ -7,7 +7,7 @@ function CurveParameter(props) {
     props.callback(props.type, e.target.id);
   }
   return (
-    <div>
+    <div className="col-4 col-sm-12 mt-2">
       <div className="custom-control custom-radio custom-control-inline">
         <input type="radio" id="epi" name="curveType" className="custom-control-input" checked={props.value==="epi"?true:false} disabled={props.disabled} onChange={updateParameter}/>
         <label className="custom-control-label ms-1" htmlFor="epi">Epitrochoid</label>
